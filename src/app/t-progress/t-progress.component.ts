@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 type Coordinate = {
   x: number,
@@ -40,29 +40,11 @@ export class TProgressComponent {
     return dest;
   }
 
-  getPath(chunkPercent: number, currentPercent:number): string {
-    let prevOuter = this.positionFromCurrentPercentage(currentPercent);
-    let position = this.positionFromCurrentPercentage(currentPercent + chunkPercent);
-
-    let path = 'M ' + prevOuter.x + ' ' + prevOuter.y +
-      ' A ' + this.radius + ' ' + this.radius + ', 0, 0, 1, ' + position.x + ' ' + position.y +
-      ' L ' + this.radius + ' ' + this.radius + ' Z'
-
-    return path;
-  }
-
-  positionFromCurrentPercentage(percent: number): Coordinate {
-    let angle = (Math.PI * percent / 50);
-    let x = this.radius * (1 + Math.cos(angle));
-    let y = this.radius * (1 + Math.sin(angle));
-
-    return {
-      x: Math.round(x),
-      y: Math.round(y)
-    };
-  }
-
-  chunkArc (percent: number, size=20): Array<number> {
+  /**
+   * There is only one Arc and it has to be chunked because arcs don't behave as expected starting from the 45% point
+   * @returns an array of percentages. eg: (percent = 90, size = 20) => [20, 20, 20, 20, 10]
+   */
+  chunkArc(percent: number, size = 20): Array<number> {
     let res = []
 
     for (let i = 0; i < Math.ceil(percent / size); i++) {
@@ -78,5 +60,40 @@ export class TProgressComponent {
     }
 
     return res;
+  }
+
+  /**
+   * Returns a path for pie slice shape that starts from a given percentage
+   * EG: ◔ would have an arc from 0% to 25%
+   * 
+   * @param chunkPercent degrees of the arc
+   * @param currentPercent needed to compute the start position 
+   * @returns string - a path:
+   *   * - M = moves to the beginning of the path.
+   *   ) - A = draws an arc to the end point.
+   *  _) - L = draws a line to the center of the circle.
+   *  <) - Z (close path) = draw line to the beginning of the path.
+   */
+  getPath(chunkPercent: number, currentPercent: number): string {
+    let prevOuter = this.positionFromCurrentPercentage(currentPercent);
+    let position = this.positionFromCurrentPercentage(currentPercent + chunkPercent);
+
+    let path = 'M ' + prevOuter.x + ' ' + prevOuter.y +
+      ' A ' + this.radius + ' ' + this.radius + ', 0, 0, 1, ' + position.x + ' ' + position.y +
+      ' L ' + this.radius + ' ' + this.radius +
+      ' Z';
+
+    return path;
+  }
+
+  positionFromCurrentPercentage(percent: number): Coordinate {
+    let angle = (Math.PI * percent / 50);
+    let x = this.radius * (1 + Math.cos(angle));
+    let y = this.radius * (1 + Math.sin(angle));
+
+    return {
+      x: Math.round(x),
+      y: Math.round(y)
+    };
   }
 }

@@ -1,4 +1,4 @@
-<t-grid [data]="myData" [sortable]="true" (paginationChange)="performFetch($event)">
+<t-grid [data]="viewModel" [sortable]="true" (paginationChange)="performFetch($event)">
   <th *ngFor="let column of columnDefinition">
     <t-column [name]="column.name" [property]="column.property"
       [sortable]="column.sortable"></t-column>
