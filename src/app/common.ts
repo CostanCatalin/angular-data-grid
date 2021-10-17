@@ -37,3 +37,19 @@ function easeOutBounce(x: number): number {
 export const EASING_FUNCTIONS = [
   easeInExpo, easeInOutQuad, easeOutCirc, easeOutBounce
 ];
+
+export enum Direction {
+  None = "NONE",
+  Asceding = "ASC",
+  Descending = "DESC"
+};
+
+export type SortEvent = {
+  columnName: string,
+  direction: string
+}
+
+export type PaginationEvent = {
+  currentPage: number,
+  pageSize: number | null
+}

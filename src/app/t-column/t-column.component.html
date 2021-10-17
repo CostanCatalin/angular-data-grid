@@ -1,1 +1,2 @@
-{{name}}
+<div [ngClass]="{'sortable': sortable, 'SortUp': sortable && property == 'DESC', 'SortDown': sortable && property == 'ASC'}"
+(click)="sortByColumn()">{{name}}</div> 

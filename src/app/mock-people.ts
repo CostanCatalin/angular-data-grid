@@ -43,6 +43,6 @@ function getRandomPerson(id: number) {
   }
 }
 
-export const PEOPLE: Person[] = [...Array(100)].map((_, i) => {
+export const PEOPLE: Person[] = [...Array(106)].map((_, i) => {
   return getRandomPerson(i);
 });

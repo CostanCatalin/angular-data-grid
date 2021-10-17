@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ColumnOption } from './column-option';
 import { DataProviderService } from './data-provider.service';
 import { Person } from './person.model';
-import { EASING_FUNCTIONS } from "./easing-functions";
+import { EASING_FUNCTIONS, Direction, SortEvent, PaginationEvent } from "./common";
 
 const animation_duration = 2500; //ms
 
@@ -13,38 +13,34 @@ const animation_duration = 2500; //ms
 })
 export class AppComponent implements OnInit{
   title = 'data-grid';
-
   columnDefinition: Array<ColumnOption>;
 
+  sortable=true;
   progress = 90;
   progressRadius = 50;
-  page = 2;
   pageSize = 20;
   start: any;
   myData: Person[];
-  easeFunc: Function;
+  viewModel: Person[];
+  easeFunc: (x: number) => number;
 
   constructor (
     dataProviderService: DataProviderService
   ) {
-    this.myData = dataProviderService.getPeople(this.page, this.pageSize);
-    this.easeFunc = EASING_FUNCTIONS[Math.floor(Math.random() * EASING_FUNCTIONS.length)];
-
+    this.myData = dataProviderService.getPeople();
+    this.viewModel = this.myData;
     this.columnDefinition = Object.keys(this.myData[0]).map(p => {
       return {
         name: p.substr(0, 1).toUpperCase() + p.substr(1),
-        property: null,
-        sortable: true
+        property: p == "id" ? Direction.Asceding : Direction.None,
+        sortable: this.sortable
       }
     });
-  }
-  
-  get viewModel(): Array<Person> {
-    return this.myData;
+    this.easeFunc = EASING_FUNCTIONS[Math.floor(Math.random() * EASING_FUNCTIONS.length)];
   }
 
-  performFetch(event: unknown) {
-    console.log(event);
+  performFetch(event: PaginationEvent) {
+    // throw Error("can't fetch, only data loaded by the grid");
   }
 
   ngOnInit(): void {
@@ -63,10 +59,41 @@ export class AppComponent implements OnInit{
       this.progress = newProgress;
     }
 
-
     if (elapsed < animation_duration) {
       previousTimeStamp = timestamp;
       window.requestAnimationFrame(this.updatePercentageStep.bind(this));
     }
+  }
+
+  sortByColumn(event: SortEvent) {
+    for (let i = 0; i < this.columnDefinition.length; i++) {
+      const column = this.columnDefinition[i];
+      column.property = column.name == event.columnName ? event.direction : Direction.None;
+    }
+
+    this.updateViewModel();
+  }
+
+  updateViewModel() {
+    let columnToSortBy = this.columnDefinition.find(c => {
+      return c.property != Direction.None;
+    });
+
+    if (!columnToSortBy) {
+      throw Error("Column not found");
+    }
+
+    let propToSortBy = columnToSortBy?.name.substr(0, 1).toLowerCase() + columnToSortBy?.name.substr(1);
+    let newViewModel: any[] = (this.viewModel as Array<any>).slice();
+    
+    newViewModel.sort((a, b) => {
+      if (columnToSortBy?.property == Direction.Asceding) {
+        return (a[propToSortBy] > b[propToSortBy]) ? 1 : ((b[propToSortBy] > a[propToSortBy]) ? -1 : 0);
+      } else {
+        return (a[propToSortBy] > b[propToSortBy]) ? -1 : ((b[propToSortBy] > a[propToSortBy]) ? 1 : 0);
+      }
+    });
+
+    this.viewModel = newViewModel;
   }
 }

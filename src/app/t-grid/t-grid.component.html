@@ -1,12 +1,15 @@
-<table>
+<table class="sortable">
   <thead>
     <tr>
       <ng-content></ng-content>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let row of data">
+    <tr *ngFor="let row of viewModel">
       <td *ngFor="let cellValue of generateArray(row)">{{cellValue}}</td>
     </tr>
   </tbody>
 </table>
+
+<t-pagination *ngIf="pageSize" [currentPage]="currentPage" [numberOfPages]="numberOfPages" [pageSize]="pageSize" 
+  (paginationChange)="paginationChangeFromComponent($event)"></t-pagination>

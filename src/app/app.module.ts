@@ -5,13 +5,15 @@ import { AppComponent } from './app.component';
 import { TGridComponent } from './t-grid/t-grid.component';
 import { TColumnComponent } from './t-column/t-column.component';
 import { TProgressComponent } from './t-progress/t-progress.component';
+import { TPaginationComponent } from './t-pagination/t-pagination.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TGridComponent,
     TColumnComponent,
-    TProgressComponent
+    TProgressComponent,
+    TPaginationComponent
   ],
   imports: [
     BrowserModule

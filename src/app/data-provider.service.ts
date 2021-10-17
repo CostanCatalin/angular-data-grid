@@ -6,8 +6,7 @@ import { PEOPLE } from "./mock-people";
   providedIn: 'root'
 })
 export class DataProviderService {
-  getPeople(page: number, pageSize: number): Person[] {
-    let startIdx = (page - 1) * pageSize;
-    return PEOPLE.slice(startIdx, startIdx + pageSize);
+  getPeople(): Person[] {
+    return PEOPLE;
   }
 }

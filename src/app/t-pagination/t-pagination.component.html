@@ -1,0 +1,10 @@
+<div class="pagination">
+  <a *ngIf="hasPreviousPage; else elseBlock" (click)="goToPreviousPage()">❮</a>
+  <p>page {{currentPage}} of {{numberOfPages}}</p>
+  <a *ngIf="hasNextPage; else elseBlock" (click)="goToNextPage()">❯</a>
+
+  <label for="pageSize">Page size</label>
+  <input type="number" name="pageSize" id="pageSize" min="0" [value]="pageSize" (focusout)="newPageSize($event)">
+</div>
+
+<ng-template #elseBlock><span class="placeholder"></span></ng-template>
