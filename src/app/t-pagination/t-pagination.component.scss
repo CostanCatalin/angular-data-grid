@@ -1,0 +1,48 @@
+.pagination {
+  display: block;
+  width: 60%;
+  min-width: 1000px;
+  margin: 30px auto 100px auto;
+
+  .placeholder {
+    width: 40px;
+  }
+
+  label {
+    margin-left: 50px;
+  }
+
+  input {
+    margin-left: 20px;
+    width: 50px;
+    padding: 8px 16px;
+  }
+
+  a,
+  p,
+  .placeholder {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  p {
+    margin: 0 20px;
+  }
+
+  a {
+    color: black;
+    padding: 8px 16px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.35s;
+    border-radius: 2px;
+
+    &:hover {
+      background-color: #ebebeb;
+    }
+    
+    &:active {
+      background-color: gray;
+    }
+  }
+}

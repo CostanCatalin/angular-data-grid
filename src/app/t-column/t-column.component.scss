@@ -1,0 +1,19 @@
+div {
+  background-position: bottom 50% right 10px;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  padding: 10px;
+  background-color: #ebebeb;
+}
+
+.sortable {
+  background-image: url("/assets/images/bg.gif");
+}
+
+.SortUp {
+  background-image: url("/assets/images/asc.gif");
+}
+
+.SortDown {
+  background-image: url("/assets/images/desc.gif");
+}

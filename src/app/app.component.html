@@ -1,8 +1,12 @@
-<t-grid [data]="viewModel" [sortable]="true" (paginationChange)="performFetch($event)">
+
+<h2>#2 Progress Indicator</h2>
+<t-progress [radius]="progressRadius" [progress]="progress" color="#00ff77"></t-progress>
+
+<h2>#1 DataGrid (Table)</h2>
+<t-grid [data]="viewModel" [pageSize]="pageSize" [sortable]="sortable" (paginationChange)="performFetch($event)">
   <th *ngFor="let column of columnDefinition">
-    <t-column [name]="column.name" [property]="column.property"
-      [sortable]="column.sortable"></t-column>
+    <t-column [name]="column.name" [property]="column.property" [sortable]="column.sortable"
+     (sortChange)="sortByColumn($event)"
+     ></t-column>
   </th>
 </t-grid>
-
-<t-progress [radius]="progressRadius" [progress]="progress" color="#00ff77"></t-progress>

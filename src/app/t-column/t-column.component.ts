@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { Direction, SortEvent } from '../common';
 
 @Component({
   selector: 't-column',
@@ -12,4 +13,23 @@ export class TColumnComponent {
   @Input() property: string = "";
 
   @Input() sortable: boolean = false;
+  
+  @Output() sortChange = new EventEmitter<SortEvent>();
+
+  sortByColumn() {
+    if (!this.sortable) {
+      return;
+    }
+
+    if (this.property == Direction.Asceding) {
+      this.property = Direction.Descending;
+    } else {
+      this.property = Direction.Asceding;
+    }
+
+    this.sortChange.emit({
+      columnName: this.name,
+      direction: this.property
+    });
+  }
 }
