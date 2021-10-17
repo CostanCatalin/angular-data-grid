@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ColumnOption } from './column-option';
+import { DataProviderService } from './data-provider.service';
+import { Person } from './person.model';
 
 @Component({
   selector: 'app-root',
@@ -8,20 +11,32 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit{
   title = 'data-grid';
 
-  firstColumn = "First Name";
-  firstName = "Catalin";
-  secondColumn = "Last Name";
-  lastName = "Costan";
+  columnDefinition: Array<ColumnOption>;
 
   progress = 10;
   progressRadius = 50;
+  page = 2;
+  pageSize = 20;
   interval: any;
+  myData: Person[];
+
+  constructor (
+    dataProviderService: DataProviderService
+  ) {
+    this.myData = dataProviderService.getPeople(this.page, this.pageSize);
+    this.columnDefinition = Object.keys(this.myData[0]).map(p => {
+      return {
+        name: p.substr(0, 1).toUpperCase() + p.substr(1),
+        property: null,
+        sortable: true
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.interval = setInterval(this.updatePercentage.bind(this), 250);
   }
 
-  myData = ["Catalin", "Costan"]
 
   performFetch(event: unknown) {
     console.log(event);

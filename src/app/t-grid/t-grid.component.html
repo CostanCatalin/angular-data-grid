@@ -1,2 +1,12 @@
-<ng-content></ng-content>
-<p>t-grid works!</p>
+<table>
+  <thead>
+    <tr>
+      <ng-content></ng-content>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of data">
+      <td *ngFor="let cellValue of generateArray(row)">{{cellValue}}</td>
+    </tr>
+  </tbody>
+</table>

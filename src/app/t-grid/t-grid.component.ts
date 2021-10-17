@@ -7,9 +7,13 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   styleUrls: ['./t-grid.component.scss']
 })
 export class TGridComponent {
-  @Input() data: any;
+  @Input() data: Array<any> = [];
 
   @Input() sortable: boolean = false;
 
   @Input() paginationChange: any;
+
+  generateArray(obj: any) : Array<any> {
+    return Object.keys(obj).map((key)=>{ return obj[key]});
+  }
 }

@@ -1,6 +1,8 @@
 <t-grid [data]="myData" [sortable]="true" (paginationChange)="performFetch($event)">
-  <t-column [name]="firstColumn" [property]="firstName" [sortable]="false"></t-column>
-  <t-column [name]="secondColumn" [property]="lastName" [sortable]="true"></t-column>
+  <th *ngFor="let column of columnDefinition">
+    <t-column [name]="column.name" [property]="column.property"
+      [sortable]="column.sortable"></t-column>
+  </th>
 </t-grid>
 
 <t-progress [radius]="progressRadius" [progress]="progress" color="#00ff77"></t-progress>
