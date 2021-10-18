@@ -1,3 +1,4 @@
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 
 import { TProgressComponent } from './t-progress.component';
@@ -8,7 +9,8 @@ describe('TProgressComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TProgressComponent ]
+      declarations: [ TProgressComponent ],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
     })
     .compileComponents();
   });

@@ -1,3 +1,4 @@
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { PaginationEvent } from '../common';
@@ -10,7 +11,8 @@ describe('TPaginationComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TPaginationComponent]
+      declarations: [TPaginationComponent],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
     })
       .compileComponents();
   });

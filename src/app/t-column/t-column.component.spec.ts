@@ -1,3 +1,4 @@
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { SortEvent } from '../common';
@@ -10,7 +11,8 @@ describe('TColumnComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TColumnComponent ]
+      declarations: [ TColumnComponent ],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
     })
     .compileComponents();
   });

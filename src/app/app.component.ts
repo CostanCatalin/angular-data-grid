@@ -15,7 +15,7 @@ export class AppComponent implements OnInit{
   title = 'data-grid';
   columnDefinition: Array<ColumnOption>;
 
-  sortable=true;
+  sortable = true;
   progress = 90;
   progressRadius = 50;
   pageSize = 20;
