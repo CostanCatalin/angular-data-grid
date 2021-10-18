@@ -10,13 +10,13 @@ const default_page_number = 1;
   styleUrls: ['./t-grid.component.scss']
 })
 export class TGridComponent {
+  currentPage = default_page_number;
+
   @Input() data: Array<any> = [];
   @Input() pageSize: number | null = null;
   @Input() sortable: boolean = false;
 
   @Output() paginationChange = new EventEmitter<PaginationEvent>();
-
-  currentPage = default_page_number;
 
   get numberOfPages() {
     if (this.pageSize !== null) {

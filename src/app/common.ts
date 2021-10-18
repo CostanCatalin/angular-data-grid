@@ -17,7 +17,7 @@ function easeInBack(x: number): number {
   return c3 * x * x * x - c1 * x * x;
 }
 
-// this one made me chuckle so I had to put it here
+// this one made me chuckle so I had to put it in here
 function easeOutBounce(x: number): number {
   const n1 = 7.5625;
   const d1 = 2.75;

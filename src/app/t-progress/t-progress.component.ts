@@ -20,7 +20,7 @@ export class TProgressComponent {
   public radius: number = 0;
 
   @Input()
-  color: string = "gray";
+  public color: string = "gray";
 
   get circleSize() {
     return this.radius * 2;

@@ -9,9 +9,7 @@ import { Direction, SortEvent } from '../common';
 })
 export class TColumnComponent {
   @Input() name: string = "";
-
   @Input() property: string = "";
-
   @Input() sortable: boolean = false;
   
   @Output() sortChange = new EventEmitter<SortEvent>();
